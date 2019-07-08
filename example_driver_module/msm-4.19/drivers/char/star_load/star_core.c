@@ -1,12 +1,14 @@
 #include "star_core.h"
 
 int star_probe(struct platform_device * pdev) {
-	printk("xhlu : %s , %s\n",__func__,__LINE__);
+	LOGI("E");
+	LOGI("X");
 	return 0;
 }
 
 int star_remove(struct platform_device * pdev) {
-	printk("xhlu : %s , %s\n",__func__,__LINE__);
+	LOGI("E");
+	LOGI("X");
 	return 0;
 }
 
@@ -76,12 +78,16 @@ struct platform_driver star_driver = {
 
 
 int __init start_load_driver_init(void){
+	LOGI("E");
 	platform_driver_register(&star_driver);
+	LOGI("X");
 	return 0;
 }
 
 void __exit start_laod_driver_exit(void){
+	LOGI("E");
 	platform_driver_unregister(&star_driver);
+	LOGI("X");
 }
 
 module_init(start_load_driver_init);

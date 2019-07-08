@@ -6,6 +6,7 @@
 #include <linux/module.h>  // module_init
 #include <linux/platform_device.h>    // platform_driver_register
 #include <linux/mod_devicetable.h>    // for of_device_id
+#include <linux/of.h>      // parse_dt of function 
 
 #define STAR_LAOD_NAME "star_load_platform_driver" 
 
@@ -25,6 +26,11 @@
 	do{\
 		printk(TAG  LEVEL_I "%s:%s: "a" \n");\
 	}while(0)
+
+struct star_platform_data {
+	const char* artificial_reg_name;
+	const char* digital_reg_name;
+};
 
 struct platform_driver star_driver;
 

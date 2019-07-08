@@ -1,13 +1,62 @@
 #include "star_core.h"
 
+
+int parse_dt(struct device *pdev,struct star_platform_data *pdata){
+	int ret; 
+	struct device_node *np = pdev->of_node;
+	
+	ret = of_property_read_string(np,"star,regulator_avdd",&(pdata->artificial_reg_name));
+	if (ret == -EINVAL)
+		LOGE("Failed to read dt string");
+	else if (ret < 0)
+		return ret;
+	
+	ret = of_property_read_string(np,"star,regulator_dvdd",&(pdata->digital_reg_name));
+	if (ret == -EINVAL)
+		LOGE("Failed to read dt string");
+	else if (ret < 0)
+		return ret;
+	
+	return 0;
+}
+
+/* 
+ * struct platform_device {
+ * 	const char	*name;
+ * 	int		id;
+ * 	bool		id_auto;
+ * 	struct device	dev;
+ * 	u32		num_resources;
+ * 	struct resource	*resource;
+ * 	
+ * 	const struct platform_device_id	*id_entry;
+ * 	char *driver_override;  // Driver name to force a match 
+ * 	
+ * 	// MFD cell pointer
+ * 	struct mfd_cell *mfd_cell;
+ * 	
+ * 	// arch specific additions
+ * 	struct pdev_archdata	archdata;
+ * };
+ */
 int star_probe(struct platform_device * pdev) {
+	struct star_platform_data * pStar_data;
 	LOGI("E");
+	
+	pStar_data = devm_kzalloc(&pdev->dev,sizeof(struct star_platform_data),
+		GFP_KERNEL);  // GFP_KERNEL gfp.h ( get free page )
+	if (!pStar_data)
+		LOGE("Failed to malloc mem for star_platform_data");
+	parse_dt(&pdev->dev,pStar_data);
+	
+
 	LOGI("X");
 	return 0;
 }
 
 int star_remove(struct platform_device * pdev) {
 	LOGI("E");
+	
 	LOGI("X");
 	return 0;
 }
@@ -79,14 +128,18 @@ struct platform_driver star_driver = {
 
 int __init start_load_driver_init(void){
 	LOGI("E");
+	
 	platform_driver_register(&star_driver);
+	
 	LOGI("X");
 	return 0;
 }
 
 void __exit start_laod_driver_exit(void){
 	LOGI("E");
+	
 	platform_driver_unregister(&star_driver);
+	
 	LOGI("X");
 }
 

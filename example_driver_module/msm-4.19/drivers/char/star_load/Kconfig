@@ -1,0 +1,7 @@
+
+config START_LOAD_CORE
+  string "start load demo, just for show."
+  default y
+  help 
+    this module enable support for start load demo 
+	which is a virtual driver for debug. 

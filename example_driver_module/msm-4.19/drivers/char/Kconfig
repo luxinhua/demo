@@ -1,0 +1,7 @@
+
+config START_LOAD_CORE
+	bool "enable start load demo"
+	default y
+	help
+	  Select this option if you want support for start load demo.
+	  xhlu support it.

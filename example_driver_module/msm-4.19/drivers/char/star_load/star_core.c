@@ -1,5 +1,10 @@
+#include <linux/device.h>  // for driver member from  platform_driver 
+#include <linux/init.h>    // late_initcall 
+#include <linux/module.h>  // module_init
+#include <linux/platform_device.h>    // platform_driver_register
+#include <linux/mod_devicetable.h>    // for of_device_id
+#include <linux/of.h>      // parse_dt of function 
 #include "star_core.h"
-
 
 int parse_dt(struct device *pdev,struct star_platform_data *pdata){
 	int ret; 

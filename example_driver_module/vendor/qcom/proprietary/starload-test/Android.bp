@@ -1,0 +1,25 @@
+cc_binary {
+    name: "starload-test",
+    srcs: [
+        "starloadApp.cpp",
+    ],
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-unused-parameter",
+    ],
+    shared_libs: [
+        "libbase",
+        "libbinder",
+        "libcrypto",
+        "libcutils",
+        "libinput",
+        "liblog",
+        "libutils",
+        "libui",
+        "libhardware",
+        "libhardware_legacy",
+    ],
+
+}

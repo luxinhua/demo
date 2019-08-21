@@ -1,0 +1,6 @@
+
+config PLATFORM_EXAMPLE
+  string "an example for platform device and driver."
+  default y
+  help 
+    this module enable support for platform device and driver.

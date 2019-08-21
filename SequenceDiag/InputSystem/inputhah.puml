@@ -1,0 +1,25 @@
+@startuml inputSystem and WindowManager
+SystemServer -> InputManagerService:inputManager = new InputManagerService(context);
+SystemServer -> WindowManagerService:WindowManagerService.main (init by inputMange)
+ServiceManager -> InputManagerService:addService(inputManger)
+ServiceManager -> WindowManagerService:addService(Vm)
+InputManagerService -> InputManagerService: setWindowManagerCallbacks(wm.getInputManagerCallback());
+InputManagerService -> InputManagerService: start()
+activate InputManagerService
+InputManagerService -> com_android_server_input_InputManagerService : start() --> nativeStart()
+com_android_server_input_InputManagerService -> InputManager :NativeInputManager* im = reinterpret_cast<NativeInputManager*>(ptr);
+com_android_server_input_InputManagerService -> InputManager:im->getInputManager()->start()
+InputManager -> InputManager : start()
+activate InputManager
+InputManager -> InputDispatcherThread : mDispatcherThread->run()
+activate InputDispatcherThread
+InputDispatcherThread -> InputDispatcherThread : threadLoop()
+InputDispatcherThread -> InputDispatcherInterface : mDispatch->loopOnce()
+deactivate InputDispatcherThread
+InputManager -> InputReaderThread : mReaderThread->run() 
+deactivate InputManager
+InputManagerService -> InputManagerService: register some Observer and setting
+
+deactivate InputManagerService
+
+@enduml

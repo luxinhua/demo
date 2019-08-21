@@ -15,14 +15,19 @@ InputManager -> InputDispatcherThread : mDispatcherThread->run()
 activate InputDispatcherThread
 InputDispatcherThread -> InputDispatcherThread : threadLoop()
 InputDispatcherThread -> InputDispatcherInterface : mDispatch->loopOnce()
-
-
-
+activate InputDispatcherInterface
+InputDispatcherInterface->InputDispatcherInterface:dispatchOnceInnerLocked(&nextWakeupTime);
+activate InputDispatcherInterface
+InputDispatcherInterface->InputDispatcherInterface: !mInboundQueue.isEmpty()
+activate InputDispatcherInterface
+InputDispatcherInterface->InputDispatcherInterface:resetANRTimeoutsLocked(); ( dispatch events ) 
+deactivate InputDispatcherInterface
+deactivate InputDispatcherInterface
+InputDispatcherInterface->InputDispatcherInterface:runCommandsLockedInterruptible() 
+deactivate InputDispatcherInterface
 deactivate InputDispatcherThread
 InputManager -> InputReaderThread : mReaderThread->run() 
 deactivate InputManager
 InputManagerService -> InputManagerService: register some Observer and setting
-
 deactivate InputManagerService
-
 @enduml

@@ -15,6 +15,9 @@ InputManager -> InputDispatcherThread : mDispatcherThread->run()
 activate InputDispatcherThread
 InputDispatcherThread -> InputDispatcherThread : threadLoop()
 InputDispatcherThread -> InputDispatcherInterface : mDispatch->loopOnce()
+
+
+
 deactivate InputDispatcherThread
 InputManager -> InputReaderThread : mReaderThread->run() 
 deactivate InputManager
